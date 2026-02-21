@@ -1,0 +1,59 @@
+version: 2.1
+
+jobs:
+  api-tests:
+    docker:
+      - image: cimg/openjdk:17.0
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-maven-{{ checksum "pom.xml" }}
+            - v1-maven-
+      - run:
+          name: Run API tests and generate HTML report
+          command: mvn -B -Dtest=org.example.runner.OpenLibraryAuthorTest verify
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: v1-maven-{{ checksum "pom.xml" }}
+      - store_test_results:
+          path: target/surefire-reports
+      - store_artifacts:
+          path: target/cucumber-html-reports
+          destination: api-cucumber-html
+      - store_artifacts:
+          path: target/cucumber-report/cucumber.json
+          destination: api-cucumber-json
+
+  ui-tests:
+    docker:
+      - image: cimg/openjdk:17.0-browsers
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-maven-{{ checksum "pom.xml" }}
+            - v1-maven-
+      - run:
+          name: Run UI tests and generate HTML report
+          command: mvn -B -Dtest=org.example.runner.StampDutyUiTest verify
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: v1-maven-{{ checksum "pom.xml" }}
+      - store_test_results:
+          path: target/surefire-reports
+      - store_artifacts:
+          path: target/cucumber-html-reports
+          destination: ui-cucumber-html
+      - store_artifacts:
+          path: target/cucumber-report/cucumber.json
+          destination: ui-cucumber-json
+
+workflows:
+  version: 2
+  test-workflow:
+    jobs:
+      - api-tests
+      - ui-tests
