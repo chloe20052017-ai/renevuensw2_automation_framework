@@ -1,3 +1,4 @@
+@api
 Feature: OpenLibrary Author API validation
 
   Scenario: Validate author personal name and alternate names

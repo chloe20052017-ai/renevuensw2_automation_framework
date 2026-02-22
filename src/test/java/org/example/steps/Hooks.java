@@ -12,7 +12,7 @@ import java.time.Duration;
 public class Hooks {
     private static WebDriver driver;
 
-    @Before
+    @Before("@ui")
     public void setUp() {
         if (driver == null) {
             boolean isCi = "true".equalsIgnoreCase(System.getenv("CI"));
@@ -29,7 +29,7 @@ public class Hooks {
         }
     }
 
-    @After
+    @After("@ui")
     public void tearDown() {
         if (driver != null) {
             driver.quit();

@@ -1,3 +1,4 @@
+@ui
 Feature: Vehicle stamp duty calculator
 
   Scenario Outline: Calculate stamp duty for a vehicle amount
