@@ -12,6 +12,9 @@ import static io.cucumber.junit.platform.engine.Constants.PLUGIN_PROPERTY_NAME;
 @IncludeEngines("cucumber")
 @SelectClasspathResource("features/openlibrary_author.feature")
 @ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "org.example.steps")
-@ConfigurationParameter(key = PLUGIN_PROPERTY_NAME, value = "pretty, json:target/cucumber-report/cucumber.json")
+@ConfigurationParameter(
+        key = PLUGIN_PROPERTY_NAME,
+        value = "pretty, json:target/cucumber-report/cucumber.json, html:target/cucumber-report/cucumber.html"
+)
 public class OpenLibraryAuthorTest {
 }

@@ -10,8 +10,11 @@ import static io.cucumber.junit.platform.engine.Constants.PLUGIN_PROPERTY_NAME;
 
 @Suite
 @IncludeEngines("cucumber")
-@SelectClasspathResource("features/stamp_duty.feature")
+@SelectClasspathResource("features")
 @ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "org.example.steps")
-@ConfigurationParameter(key = PLUGIN_PROPERTY_NAME, value = "pretty, json:target/cucumber-report/cucumber.json")
-public class StampDutyUiTest {
+@ConfigurationParameter(
+        key = PLUGIN_PROPERTY_NAME,
+        value = "pretty, json:target/cucumber-report/cucumber.json, html:target/cucumber-report/cucumber.html"
+)
+public class StampDutyTest {
 }

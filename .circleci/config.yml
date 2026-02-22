@@ -12,7 +12,7 @@ jobs:
             - v1-maven-
       - run:
           name: Run API tests and generate HTML report
-          command: mvn -B -Dtest=org.example.runner.OpenLibraryAuthorTest verify
+          command: mvn -B -Dtest=org.example.runner.StampDutyTest -Dcucumber.filter.tags="@api" verify
       - save_cache:
           paths:
             - ~/.m2
@@ -20,7 +20,7 @@ jobs:
       - store_test_results:
           path: target/surefire-reports
       - store_artifacts:
-          path: target/cucumber-html-reports
+          path: target/cucumber-report/cucumber.html
           destination: api-cucumber-html
       - store_artifacts:
           path: target/cucumber-report/cucumber.json
@@ -37,7 +37,7 @@ jobs:
             - v1-maven-
       - run:
           name: Run UI tests and generate HTML report
-          command: mvn -B -Dtest=org.example.runner.StampDutyUiTest verify
+          command: mvn -B -Dtest=org.example.runner.StampDutyTest -Dcucumber.filter.tags="@ui" verify
       - save_cache:
           paths:
             - ~/.m2
@@ -45,7 +45,7 @@ jobs:
       - store_test_results:
           path: target/surefire-reports
       - store_artifacts:
-          path: target/cucumber-html-reports
+          path: target/cucumber-report/cucumber.html
           destination: ui-cucumber-html
       - store_artifacts:
           path: target/cucumber-report/cucumber.json
